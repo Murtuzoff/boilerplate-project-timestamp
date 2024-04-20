@@ -7,7 +7,7 @@ app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(express.static("public"));
 
 app.get("/stylez.css", (req, res) => {
-  res.json(req);
+  res.json({ req: req });
 });
 
 app.get("/", (req, res) => {
