@@ -4,14 +4,10 @@ const app = express();
 
 const cors = require("cors");
 app.use(cors({ optionsSuccessStatus: 200 }));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
-});
-
-app.get("/style.css", (req, res) => {
-  res.sendFile(__dirname + "/public/style.css");
 });
 
 app.get("/api/hello", (req, res) => {
