@@ -6,6 +6,11 @@ const cors = require('cors');
 app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(express.static('public'));
 
+app.get('/style.css', (req, res) => {
+  res.type('text/css');
+  res.sendFile(__dirname + '/style.css');
+});
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
