@@ -4,7 +4,13 @@ const app = express();
 
 const cors = require('cors');
 app.use(cors({ optionsSuccessStatus: 200 }));
-app.use(express.static('public'));
+app.use(express.static('public', {
+  setHeaders: (res, path, stat) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+}));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
