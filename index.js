@@ -1,25 +1,24 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
 
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors({ optionsSuccessStatus: 200 }));
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.get("/stylez.css", (req, res) => {
-  res.sendFile(__dirname + '/style.css');
+  res.json(req);
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.get("/api/hello", (req, res) => {
-  res.json({ greeting: 'hello API' });
+  res.json({ greeting: "hello API" });
 });
 
 app.get("/api/:date", (req, res) => {
-
   let dateParam = req.params.date;
   let date;
 
@@ -31,8 +30,8 @@ app.get("/api/:date", (req, res) => {
 
   if (isNaN(date.getTime())) {
     res.json({
-      error: "Invalid Date"
-    })
+      error: "Invalid Date",
+    });
   } else {
     res.json({
       unix: date.getTime(),
@@ -51,5 +50,5 @@ app.get("/api/", (req, res) => {
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Your app is listening on port ' + listener.address().port);
+  console.log("Your app is listening on port " + listener.address().port);
 });
