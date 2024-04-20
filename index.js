@@ -13,39 +13,36 @@ app.get("/api/hello", (req, res) => {
   res.json({ greeting: 'hello API' });
 });
 
-app.get("/api/current_time", (req, res) => {
+app.get("/api/:date", (req, res) => {
+
+  let dateParam = req.params.date;
+  let date;
+
+  if (!isNaN(dateParam)) {
+    date = new Date(parseInt(dateParam));
+  } else {
+    date = new Date(dateParam);
+  }
+
+  if (isNaN(date.getTime())) {
+    res.json({
+      error: "Invalid Date"
+    });
+  }
+
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString(),
+  });
+});
+
+app.get("/api/", (req, res) => {
   const timeInMs = Date.now();
   const timeUTC = new Date().toUTCString();
   res.json({
     unix: timeInMs,
     utc: timeUTC,
   });
-});
-
-app.get("/api/:date_string", (req, res) => {
-  try {
-    let dateParam = req.params.date_string;
-    let date;
-
-    if (!dateParam) throw new Error("Date parameter is missing");
-
-    if (!isNaN(dateParam)) {
-      date = new Date(parseInt(dateParam));
-    } else {
-      date = new Date(dateParam);
-    }
-
-    if (isNaN(date.getTime())) {
-      throw new Error("Invalid Date");
-    }
-
-    res.json({
-      unix: date.getTime(),
-      utc: date.toUTCString(),
-    });
-  } catch (error) {
-    res.json({ error: error.message });
-  }
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {
