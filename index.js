@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/style", (req, res) => {
-  res(JSON.stringify(__dirname));
+  res.json({ response: __dirname + "/views/index.html" });
 });
 
 app.get("/api/hello", (req, res) => {
