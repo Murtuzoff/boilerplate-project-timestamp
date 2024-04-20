@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/style", (req, res) => {
+app.get("/style.css", (req, res) => {
   res.sendFile(__dirname + "/public/style.css");
 });
 
