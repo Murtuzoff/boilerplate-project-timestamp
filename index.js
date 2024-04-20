@@ -6,12 +6,12 @@ const cors = require("cors");
 app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(express.static("public"));
 
-app.get("/style", (req, res) => {
-  res.json({ req: req });
-});
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
+});
+
+app.get("/style", (req, res) => {
+  res.json({ greeting: "hello API" });
 });
 
 app.get("/api/hello", (req, res) => {
